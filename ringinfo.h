@@ -12,8 +12,8 @@ typedef struct complex_number ComplexNumber;
 typedef struct RingInfo RingInfo;
 typedef struct RingInfo {
     size_t size;
-    void (*sum)(const void *a, const void *b, void *ResSum);
-    void (*mult)(const void *a, const void *b, void *ResMult);
+    void (*sum)(const void *, const void *, void *);
+    void (*mult)(const void *, const void *, void *);
     void (*zero)(void *);
     void (*input)(Matrix *);
     void (*output)(Matrix *);
@@ -22,8 +22,8 @@ typedef struct RingInfo {
 
 RingInfo *InitRingInfo(
         size_t size,
-        void (*sum)(const void *a, const void *b, void *ResSum),
-        void (*mult)(const void *a, const void *b, void *ResMult),
+        void (*sum)(const void *, const void *, void *),
+        void (*mult)(const void *, const void *, void *),
         void (*zero)(void *),
         void (*input)(Matrix *),
         void (*output)(Matrix *));
