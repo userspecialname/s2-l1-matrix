@@ -9,7 +9,7 @@
 
 
 void SumOfMatrix(const Matrix *s1, const Matrix *s2, Matrix *res) {
-    if (s1->ring != s2->ring || s1->ring != res->ring) {
+    if (memcmp(s1->ring, s2->ring, sizeof(RingInfo)) != 0 || memcmp(s1->ring, res->ring, sizeof(RingInfo)) != 0) {
         printf("Error: matrices have different ring types\n");
         return;
     }
@@ -23,9 +23,19 @@ void SumOfMatrix(const Matrix *s1, const Matrix *s2, Matrix *res) {
     if (res->data != NULL) {
         CleanMemory(res);
     }
+
     res->data = calloc(n * n, res->ring->size);
     if (!res->data) {
         printf("Error: failed to allocate memory for result matrix\n");
+        return;
+    }
+
+    // Инициализируем матрицу res нулями
+    memset(res->data, 0, n * n * res->ring->size);
+
+    // Специальный случай для матриц размера 1x1
+    if (n == 1) {
+        res->ring->sum(s1->data, s2->data, res->data);
         return;
     }
 
@@ -33,7 +43,6 @@ void SumOfMatrix(const Matrix *s1, const Matrix *s2, Matrix *res) {
         res->ring->sum(s1->data + i * s1->ring->size, s2->data + i * s2->ring->size, res->data + i * res->ring->size);
     }
 }
-
 
 void MultiplicationOfMatrix(const Matrix *s1, const Matrix *s2, Matrix *res) {
     if (s1->ring != s2->ring || s1->ring != res->ring) {
