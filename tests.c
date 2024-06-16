@@ -9,6 +9,49 @@
 #include "math.h"
 
 
+Matrix *m0() {
+    Matrix *result = InitMatrix(1, GetIntRingInfo());
+    result->data = malloc(sizeof(int));
+    *(int*)(result->data) = 0;
+    return result;
+}
+
+Matrix *m100500() {
+    Matrix *result = InitMatrix(1, GetIntRingInfo());
+    result->data = malloc(sizeof(int));
+    *(int*)(result->data) = 100500;
+    return result;
+}
+
+void freeMatrix(Matrix *m) {
+    free(m->data);
+    free(m);
+}
+
+void tezzt() {
+    Matrix *a = m0();
+    Matrix *b = m0();
+    Matrix *res = m100500();
+
+    printf("a: "); OutputMatrix(a);
+    printf("b: "); OutputMatrix(b);
+    printf("result: "); OutputMatrix(res);
+
+    assert(*(int*)(res->data) == 100500);
+
+    SumOfMatrix(a, b, res);
+
+    printf("After SumOfMatrix:\n");
+    printf("result: "); OutputMatrix(res);
+
+    assert(*(int*)(res->data) == 0);
+
+    freeMatrix(a);
+    freeMatrix(b);
+    freeMatrix(res);
+}
+
+
 void TestSum(const Matrix *s1, const Matrix *s2, const Matrix *expected, const RingInfo *ring);
 void TestMult(const Matrix *s1, const Matrix *s2, const Matrix *expected, const RingInfo *ring);
 
