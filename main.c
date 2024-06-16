@@ -191,6 +191,7 @@ int main() {
             
             case 6:
                 RunAllTests();
+                tezzt();
 
             case 7:
                 flag = 0;
