@@ -8,9 +8,8 @@
 #define TEST_SIZE 3
 
 
-
 void SumOfMatrix(const Matrix *s1, const Matrix *s2, Matrix *res) {
-    if (memcmp(s1->ring, s2->ring, sizeof(RingInfo)) != 0 || memcmp(s1->ring, res->ring, sizeof(RingInfo)) != 0) {
+    if (s1->ring != s2->ring || s1->ring != res->ring) {
         printf("Error: matrices have different ring types\n");
         return;
     }
